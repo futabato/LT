@@ -29,14 +29,20 @@ def ExtractionColor(frame):
     
     return ChromaKey
 
-while True:
-    ret, frame = video_capture.read()
+
+
+def main():
+    while True:
+        ret, frame = video_capture.read()
+        
+        #ExtractionColor(frame)
+
+        cv2.imshow("Video", ExtractionColor(frame))
+        if cv2.waitKey(1) & 0xFF == ord("q"):
+            break
+
+    video_capture.release()
+    cv2.destroyAllWindows()
     
-    #ExtractionColor(frame)
-
-    cv2.imshow("Video", ExtractionColor(frame))
-    if cv2.waitKey(1) & 0xFF == ord("q"):
-        break
-
-video_capture.release()
-cv2.destroyAllWindows()
+if __name__ == '__main__':
+    main()
