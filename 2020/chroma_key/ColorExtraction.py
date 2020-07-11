@@ -2,26 +2,26 @@ import cv2
 import numpy as np
 
 def main():
-    image = cv2.imread("./image/gachapin.png")
-    back = cv2.imread("./image/weather.png")
-    back = cv2.resize(back, dsize=(800, 800))
+    src_image = cv2.imread("./image/gachapin.png")
+    back_image = cv2.imread("./image/weather.png")
+    back_image = cv2.resize(back_image, dsize=(800, 800))
     
-    hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
-    hsv_min = np.array([30, 64, 0])
+    # mask of green
+    hsv = cv2.cvtColor(src_image, cv2.COLOR_BGR2HSV)
+    hsv_min = np.array([30, 60, 0])
     hsv_max = np.array([90, 255, 255])
     
-    image_mask = cv2.inRange(hsv, hsv_min, hsv_max)
-    extraction = cv2.bitwise_not(image_mask)
     
-    embedded = cv2.bitwise_and(back, back, mask = image_mask)
+    src_image_mask = cv2.inRange(hsv, hsv_min, hsv_max)
+    object_image = cv2.bitwise_and(back_image, back_image, mask = src_image_mask)
+    
+    extraction = cv2.bitwise_not(src_image_mask)
+    embedded = cv2.bitwise_and(src_image, src_image, mask = extraction)
 
-    frame = cv2.bitwise_and(back, back, mask = extraction)
-    ChromaKey = cv2.bitwise_or(embedded, frame)
+    ChromaKey = cv2.bitwise_or(object_image, embedded)
     
-    #extraction = cv2.bitwise_and(image, back, mask = image_mask)
-    #mask_process = cv2.bitwise_or(extraction, back)
     
-    cv2.imshow("ChromaKey", extraction)
+    cv2.imshow("ChromaKey", ChromaKey)
 
     while True:
         key = cv2.waitKey(1)&0xff
