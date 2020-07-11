@@ -1,6 +1,6 @@
 # Chroma Key
 
 2020年7月12日のLTより．  
-※ WSLでは動きません．  
+※ `Video_ChromaKey.py`はWSLでは動きません．  
 
 
