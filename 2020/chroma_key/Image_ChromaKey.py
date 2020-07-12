@@ -21,7 +21,7 @@ def main():
     ChromaKey = cv2.bitwise_or(object_image, embedded)
     
     
-    cv2.imshow("ChromaKey", ChromaKey)
+    cv2.imshow("ChromaKey", extraction)
 
     while True:
         key = cv2.waitKey(1)&0xff
